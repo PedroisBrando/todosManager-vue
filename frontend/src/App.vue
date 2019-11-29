@@ -1,5 +1,6 @@
 <template>
 <div>
+  <app-navbar></app-navbar>
   <div class="card-columns">
     <div v-for="(list, indexLists) in allLists">
       <app-list
@@ -15,6 +16,7 @@
 
 <script>
 import List from './List'
+import Navbar from './Navbar'
 
 export default {
   data: function () {
@@ -64,6 +66,7 @@ export default {
   },
   components: {
     'app-list': List,
+    'app-navbar': Navbar,
   },
   methods: {
     addTodo: function(newTodo, indexLists, urgency){

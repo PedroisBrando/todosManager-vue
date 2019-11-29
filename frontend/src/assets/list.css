@@ -13,6 +13,11 @@ i {
   font-style: italic
 }
 
+.button-header{
+  margin-left: auto;
+  margin-right: 0;
+}
+
 .container {
   padding-right: 0;
   padding-left: 0;

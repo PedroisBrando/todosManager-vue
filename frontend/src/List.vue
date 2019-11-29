@@ -3,15 +3,25 @@
   <div class="col-md-12">
     <div class="card-hover-shadow-2x mb-3 card">
       <app-header
-      :listName="list.name">
+      :listName="list.name"
+      v-on:show:DoneTodos="showDoneTodos">
       </app-header>
       <div class="scroll-area-sm">
         <perfect-scrollbar class="ps-show-limits">
           <div style="position: static;" class="ps ps--active-y">
             <div class="ps-content">
-              <ul class=" list-group list-group-flush" v-for='(item, indexTodos) in list.allTodos'>
+              <ul v-if="!list.showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.allTodos'>
                 <app-item 
                 :todo="list.allTodos[indexTodos]"
+                :indexTodos="indexTodos"
+                :indexLists="indexLists"
+                v-on:remove:todo="removeTodo"
+                v-on:add:doneTodo="addDoneTodo">
+                </app-item>
+              </ul>
+              <ul v-if="list.showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.doneTodos'>
+                <app-item 
+                :todo="list.doneTodos[indexTodos]"
                 :indexTodos="indexTodos"
                 :indexLists="indexLists"
                 v-on:remove:todo="removeTodo">
@@ -48,6 +58,12 @@ export default {
     },
     removeTodo: function(indexTodos, indexLists){
       this.$emit("remove:todo", indexTodos, indexLists);
+    },
+    showDoneTodos: function(){
+      this.list.showDoneTodos = !this.list.showDoneTodos;
+    },
+    addDoneTodo: function(indexTodos, indexLists){
+      this.$emit("add:doneTodo", indexTodos, indexLists);
     }
   }
 }

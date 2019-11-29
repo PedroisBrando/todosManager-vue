@@ -1,5 +1,5 @@
 {
-  "name": "todo-project",
+  "name": "backend",
   "private": true,
   "version": "0.0.0",
   "description": "a Sails application",
@@ -26,7 +26,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/anonymous node/sails user/todo-project.git"
+    "url": "git://github.com/anonymous node/sails user/backend.git"
   },
   "author": "anonymous node/sails user",
   "license": "",

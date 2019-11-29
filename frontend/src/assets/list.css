@@ -178,3 +178,29 @@ i {
 .col-md-12 {
   margin-top: 15px;
 }
+
+.form-control {
+  display: inline-block;
+  width: 100%;
+}
+
+.options-buttons{
+  margin-top: 10px;
+}
+
+.btn-link{
+  padding-top: 0;
+  padding-bottom: 7px;
+}
+
+body {
+  padding-top: 1rem;
+}
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+}

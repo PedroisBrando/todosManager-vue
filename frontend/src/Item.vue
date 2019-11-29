@@ -1,16 +1,18 @@
 <template>
 <li class="list-group-item">
-  <div class="todo-indicator bg-warning"></div>
+  <div v-if="todo.urgency == 'green'" class="todo-indicator bg-success"></div>
+  <div v-if="todo.urgency == 'yellow'" class="todo-indicator bg-warning"></div>
+  <div v-if="todo.urgency == 'red'" class="todo-indicator bg-danger"></div>
   <div class="widget-content p-0">
     <div class="widget-content-wrapper">
       <div class="widget-content-left mr-2">
         <div class="custom-checkbox custom-control"> <input class="custom-control-input" id="exampleCustomCheckbox12" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label> </div>
       </div>
       <div class="widget-content-left">
-        <div class="widget-heading">Call Sam For payments </div>
+        <div class="widget-heading">{{ todo.title }}</div>
         <div class="widget-subheading"><i>By Bob</i></div>
       </div>
-      <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+      <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger" @click="removeTodo()"> <i class="fa fa-trash"></i> </button> </div>
     </div>
   </div>
 </li>
@@ -18,6 +20,11 @@
 
 <script>
 export default {
-
+  props: ['todo', "indexTodos", "indexLists"],
+  methods: {
+    removeTodo: function(){
+      this.$emit('remove:todo', this.indexTodos, this.indexLists);
+    }
+  }
 }
 </script>

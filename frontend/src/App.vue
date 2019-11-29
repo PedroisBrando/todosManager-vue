@@ -1,41 +1,82 @@
 <template>
- <div >
+<div>
   <div class="card-columns">
-    <div v-for="card in 5">
-      <app-list></app-list>
+    <div v-for="(list, indexLists) in allLists">
+      <app-list
+      :list="allLists[indexLists]"
+      :indexLists="indexLists"
+      v-on:add:todo="addTodo"
+      v-on:remove:todo="removeTodo">
+      </app-list>
     </div>
   </div>
 </div>
 </template>
 
 <script>
-  import List from './List'
+import List from './List'
 
-  export default {
-    data: function(){
-      return {
-        newTodo: '',
-      }
+export default {
+  data: function () {
+    return {
+      allLists: [{
+          name: 'Office',
+          allTodos: [{
+              title: 'Call Sam For Payments',
+              urgency: 'yellow',
+            },
+            {
+              title: 'Make payment to Bluedart',
+              urgency: 'green',
+            },
+            {
+              title: 'Office grocery shopping',
+              urgency: 'red',
+            },
+            {
+              title: 'Ask for Lunch to Clients',
+              urgency: 'green',
+            }
+          ],
+        },
+        {
+          name: 'House',
+          allTodos: [{
+              title: 'Call Sam For Payments',
+              urgency: 'yellow',
+            },
+            {
+              title: 'Make payment to Bluedart',
+              urgency: 'green',
+            },
+            {
+              title: 'Office grocery shopping',
+              urgency: 'red',
+            },
+            {
+              title: 'Ask for Lunch to Clients',
+              urgency: 'green',
+            }
+          ],
+        }
+      ],
+    }
+  },
+  components: {
+    'app-list': List,
+  },
+  methods: {
+    addTodo: function(newTodo, indexLists, urgency){
+      let obj = {title: newTodo, urgency: urgency};
+      this.allLists[indexLists].allTodos.push(obj);
     },
-    components: {
-      'app-list': List,
-    },
-    methods: {
-
+    removeTodo: function(indexTodos, indexLists){
+      this.allLists[indexLists].allTodos.splice(indexTodos, 1);
     }
   }
+}
 </script>
 
 <style>
-body {
-  padding-top: 1rem;
-}
-.card-columns {
-  @include media-breakpoint-only(lg) {
-    column-count: 4;
-  }
-  @include media-breakpoint-only(xl) {
-    column-count: 5;
-  }
-}
+
 </style>

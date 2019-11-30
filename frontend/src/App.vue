@@ -28,32 +28,39 @@ import Navbar from './Navbar'
 export default {
   data: function () {
     return {
+      nextListId: 2,
       searchQuery: '',
       visibleLists: '',
       emptyList: [],
       allLists: [{
+          listId: 0,
+          nextTodoId: 4,
           name: 'Office',
           showDoneTodos: false,
           doneTodos: [],
           allTodos: [{
+              todoId: 0,
               title: 'Call Sam For Payments',
               by: 'Bob',
               urgency: 'yellow',
               check: false,
             },
             {
+              todoId: 1,
               title: 'Make payment to Bluedart',
               by: 'Bob',
               urgency: 'green',
               check: false,
             },
             {
+              todoId: 2,
               title: 'Office grocery shopping',
               by: 'Bob',
               urgency: 'red',
               check: false,
             },
             {
+              todoId: 3,
               title: 'Ask for Lunch to Clients',
               by: 'Bob',
               urgency: 'green',
@@ -62,28 +69,34 @@ export default {
           ],
         },
         {
+          listId: 1,
+          nextTodoId: 4,
           name: 'House',
           showDoneTodos: false,
           doneTodos: [],
           allTodos: [{
+              todoId: 0,
               title: 'Call Sam For Payments',
               by: 'Bob',
               urgency: 'yellow',
               check: false,
             },
             {
+              todoId: 1,
               title: 'Make payment to Bluedart',
               by: 'Bob',
               urgency: 'green',
               check: false,
             },
             {
+              todoId: 2,
               title: 'Office grocery shopping',
               by: 'Bob',
               urgency: 'red',
               check: false,
             },
             {
+              todoId: 3,
               title: 'Ask for Lunch to Clients',
               by: 'Bob',
               urgency: 'green',
@@ -114,9 +127,12 @@ export default {
   },
   methods: {
     addTodo: function(newTodo, indexLists, urgency){
-      let obj = {title: newTodo, urgency: urgency, by: 'Bob', check: false};
+      let obj = {todoId: this.allLists[indexLists].nextTodoId, title: newTodo, urgency: urgency, by: 'Bob', check: false};
+      this.allLists[indexLists].nextTodoId++;
       this.allLists[indexLists].showDoneTodos = false;
       this.allLists[indexLists].allTodos.push(obj);
+      console.log(this.allLists[indexLists].allTodos);
+
     },
     removeTodo: function(indexTodos, indexLists){
       this.allLists[indexLists].allTodos.splice(indexTodos, 1);
@@ -135,15 +151,18 @@ export default {
     },
     addList: function(newListName){
       let obj = {
+        listId: this.nextListId,
         name: newListName,
         showDoneTodos: false,
         doneTodos: [],
         allTodos: [],
       };
+      this.nextListId++;
       this.allLists.push(obj);
     },
     removeList: function(indexLists){
       this.allLists.splice(indexLists, 1);
+      this.searchLists(this.searchQuery);
     }
   }
 }

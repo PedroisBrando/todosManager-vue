@@ -30,7 +30,7 @@ export default {
     return {
       nextListId: 2,
       searchQuery: '',
-      visibleLists: '',
+      visibleLists: [],
       emptyList: [],
       allLists: [{
           listId: 0,
@@ -112,6 +112,7 @@ export default {
   },
   computed: {
     filteredLists(){
+      console.log('oi');
       if(this.searchQuery){
       return this.allLists.filter((item)=>{
         return item.name.toLowerCase().match(this.searchQuery.toLowerCase());
@@ -148,6 +149,10 @@ export default {
     searchLists: function(search){
       this.searchQuery = search;
       this.visibleLists = this.filteredLists;
+      if(this.visibleLists.length == 0){
+        this.searchQuery = '';
+        this.searchLists(this.searchQuery);
+      }
     },
     addList: function(newListName){
       let obj = {
@@ -161,7 +166,9 @@ export default {
       this.allLists.push(obj);
     },
     removeList: function(indexLists){
-      this.allLists.splice(indexLists, 1);
+      let indexRemove = this.allLists.findIndex(i => i.listId === this.visibleLists[indexLists].listId);
+      this.allLists.splice(indexRemove, 1);
+      console.log(this.searchQuery);
       this.searchLists(this.searchQuery);
     }
   }

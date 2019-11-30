@@ -1,14 +1,19 @@
 <template>
 <div>
-  <app-navbar></app-navbar>
+  <app-navbar
+  v-on:search:lists="searchLists"
+  v-on:add:list="addList">
+  </app-navbar>
   <div class="card-columns">
-    <div v-for="(list, indexLists) in allLists">
+    <div v-for="(list, indexLists) in visibleLists">
       <app-list
-      :list="allLists[indexLists]"
+      :list="visibleLists[indexLists]"
       :indexLists="indexLists"
+      :isEmptyList='false'
       v-on:add:todo="addTodo"
       v-on:remove:todo="removeTodo"
-      v-on:add:doneTodo="addDoneTodo">
+      v-on:add:doneTodo="addDoneTodo"
+      v-on:remove:list="removeList">
       </app-list>
     </div>
   </div>
@@ -22,27 +27,34 @@ import Navbar from './Navbar'
 export default {
   data: function () {
     return {
+      searchQuery: '',
+      visibleLists: '',
+      emptyList: [],
       allLists: [{
           name: 'Office',
           showDoneTodos: false,
           doneTodos: [],
           allTodos: [{
               title: 'Call Sam For Payments',
+              by: 'Bob',
               urgency: 'yellow',
               check: false,
             },
             {
               title: 'Make payment to Bluedart',
+              by: 'Bob',
               urgency: 'green',
               check: false,
             },
             {
               title: 'Office grocery shopping',
+              by: 'Bob',
               urgency: 'red',
               check: false,
             },
             {
               title: 'Ask for Lunch to Clients',
+              by: 'Bob',
               urgency: 'green',
               check: false,
             }
@@ -54,21 +66,25 @@ export default {
           doneTodos: [],
           allTodos: [{
               title: 'Call Sam For Payments',
+              by: 'Bob',
               urgency: 'yellow',
               check: false,
             },
             {
               title: 'Make payment to Bluedart',
+              by: 'Bob',
               urgency: 'green',
               check: false,
             },
             {
               title: 'Office grocery shopping',
+              by: 'Bob',
               urgency: 'red',
               check: false,
             },
             {
               title: 'Ask for Lunch to Clients',
+              by: 'Bob',
               urgency: 'green',
               check: false,
             }
@@ -77,13 +93,28 @@ export default {
       ],
     }
   },
+  created() {
+    this.visibleLists = this.allLists;
+  },
+  computed: {
+    filteredLists(){
+      if(this.searchQuery){
+      return this.allLists.filter((item)=>{
+        return item.name.toLowerCase().match(this.searchQuery.toLowerCase());
+      })
+      }else{
+        return this.allLists;
+      }
+    }
+  },
   components: {
     'app-list': List,
     'app-navbar': Navbar,
   },
   methods: {
     addTodo: function(newTodo, indexLists, urgency){
-      let obj = {title: newTodo, urgency: urgency, check: false};
+      let obj = {title: newTodo, urgency: urgency, by: 'Bob', check: false};
+      this.allLists[indexLists].showDoneTodos = false;
       this.allLists[indexLists].allTodos.push(obj);
     },
     removeTodo: function(indexTodos, indexLists){
@@ -93,6 +124,22 @@ export default {
       let obj = this.allLists[indexLists].allTodos.splice(indexTodos, 1);
       this.allLists[indexLists].doneTodos.push(obj[0]);
     },
+    searchLists: function(search){
+      this.searchQuery = search;
+      this.visibleLists = this.filteredLists;
+    },
+    addList: function(newListName){
+      let obj = {
+        name: newListName,
+        showDoneTodos: false,
+        doneTodos: [],
+        allTodos: [],
+      };
+      this.allLists.push(obj);
+    },
+    removeList: function(indexLists){
+      this.allLists.splice(indexLists, 1);
+    }
   }
 }
 </script>

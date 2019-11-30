@@ -7,7 +7,7 @@
     <a class="navbar-brand" href="#">Todo Lists</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(Página atual)</span></a>
+        <a class="nav-link" @click="showAllLists()" href="#">Lists <span class="sr-only">(Página atual)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -17,8 +17,12 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+      <input v-model="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Pesquisar">
+      <a href="#" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="searchLists()">Search Lists</a>
+    </form>
+    <form class="form-inline my-2 my-lg-0">
+      <input v-model="newListName" class="form-control mr-sm-2" type="text" placeholder="Name of new list" aria-label="Pesquisar">
+      <a href="#" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
     </form>
   </div>
 </nav>
@@ -26,7 +30,27 @@
 
 <script>
 export default{
-
+  data(){
+    return {
+      search: '',
+      newListName: '',
+    }
+  },
+  methods: {
+    searchLists: function(){
+      this.$emit('search:lists', this.search);
+      this.search = '';
+    },
+    addList: function(){
+      this.$emit('add:list', this.newListName);
+      this.newListName = '';
+      this.showAllLists();
+    },
+    showAllLists: function(){
+      this.search = '';
+      this.$emit('search:lists', this.search);
+    }
+  }
 }
 </script>
 

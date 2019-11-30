@@ -10,7 +10,7 @@
       </div>
       <div class="widget-content-left">
         <div class="widget-heading">{{ todo.title }}</div>
-        <div class="widget-subheading"><i>By Bob</i></div>
+        <div class="widget-subheading"><i>By {{ todo.by }}</i></div>
       </div>
       <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success" @click="addDoneTodo()"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger" @click="removeTodo()"> <i class="fa fa-trash"></i> </button> </div>
     </div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  props: ['todo', "indexTodos", "indexLists"],
+  props: ['todo', "indexTodos", "indexLists", 'isEmptyList'],
   data(){
     return {
       id: null,

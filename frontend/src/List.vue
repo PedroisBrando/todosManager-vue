@@ -4,7 +4,9 @@
     <div class="card-hover-shadow-2x mb-3 card">
       <app-header
       :listName="list.name"
-      v-on:show:DoneTodos="showDoneTodos">
+      :showDone="list.showDoneTodos"
+      v-on:remove:list="removeList"
+      v-on:show:doneTodos="showDoneTodos">
       </app-header>
       <div class="scroll-area-sm">
         <perfect-scrollbar class="ps-show-limits">
@@ -33,6 +35,7 @@
       </div>
       <app-footer 
       v-on:add:todo="addTodo"
+      :showDoneTodos="list.showDoneTodos"
       :indexLists="indexLists">
       </app-footer>
     </div>
@@ -64,6 +67,12 @@ export default {
     },
     addDoneTodo: function(indexTodos, indexLists){
       this.$emit("add:doneTodo", indexTodos, indexLists);
+    },
+    addList: function(newListName){
+      this.$emit('add:list', newListName);
+    },
+    removeList: function(){
+      this.$emit('remove:list', this.indexLists);
     }
   }
 }

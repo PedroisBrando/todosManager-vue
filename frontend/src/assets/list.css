@@ -145,7 +145,11 @@ i {
 
 .btn-outline-success {
   color: #3ac47d;
-  border-color: #3ac47d
+  border-color: #3ac47d;
+}
+
+.btn-navbar {
+  margin-right: 10px;
 }
 
 .btn-outline-success:hover {
@@ -172,6 +176,10 @@ i {
   outline: none !important
 }
 
+.btn-add-list {
+  margin-bottom: 5px;
+}
+
 .card-footer {
   background-color: #fff
 }
@@ -187,6 +195,15 @@ i {
 .form-control {
   display: inline-block;
   width: 100%;
+}
+
+.add-list-header{
+  text-align: right;
+}
+
+.form-control-empty {
+  display: inline-block;
+  width: 70%;
 }
 
 .options-buttons{

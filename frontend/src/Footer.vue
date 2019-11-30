@@ -28,11 +28,15 @@ export default {
   props: ['indexLists', 'showDoneTodos', 'isEmptyList'],
   data() {
     return {
-      newTodo: '',
-      urgency: '',
+      newTodo: '', //armazena o texto que será dado como título a nova tarefa a ser adicionada
+      urgency: '', //armazena a urgencia da nova tarefa a ser criada pelo usuário
     }
   },
   methods: {
+    /*
+      Emite um evento para adicionar uma nova tarefa e não permite que uma tarefa seja adicionada sem título. Além
+      disso após a pesquisa, a função limpa o campo de texto.
+    */
     addTodo: function(){
       if(this.newTodo == '') return;
       this.$emit('add:todo', this.newTodo, this.indexLists, this.urgency);

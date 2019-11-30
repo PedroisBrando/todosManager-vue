@@ -13,9 +13,16 @@
 export default{
   props: ['listName', 'showDone'],
   methods: {
+    /*
+      Emite evento para alternar a flag 'ShowDoneTodos' possibilitando assim que ao se clicar no botão 'Finished' mostre as 
+      tarefas já feitas e ao se clicar no botão 'Back' retorne a área de tarefas não feitas ainda
+    */
     showDoneTodos: function(){
       this.$emit('show:doneTodos');
     },
+    /*
+      Emite o evento para remover uma lista
+    */
     removeList: function(){
       this.$emit('remove:list');
     }

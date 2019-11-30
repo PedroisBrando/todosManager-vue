@@ -26,19 +26,32 @@ export default {
   props: ['todo', "indexTodos", "indexLists", 'showDoneTodos'],
   data(){
     return {
-      id: null,
+      id: null, //armazena o id que será dado à checkbox dessa tarefa
     }
   },
+  /*
+    Faz a diferenciação dos id das checkbox de cada tarefa e de cada lista, possibilitando que elas possam ser tratadas
+    de forma independete
+  */
   mounted() {
     this.id = this._uid;
   },
   methods: {
+    /*
+      Emite evento para remover uma tarefa da lista quando o botão cm o ícone de lixo for clicado
+    */
     removeTodo: function(){
       this.$emit('remove:todo', this.indexTodos, this.indexLists);
     },
+    /*
+      Emite evento para remover uma tarefa da área de tarefas não feitas para a área de tarefas feitas
+    */
     addDoneTodo: function(){
       this.$emit('add:doneTodo', this.indexTodos, this.indexLists);
     },
+    /*
+      Emite evento para retornar tarefa da área de tarefas feitas para a área de tarefas ainda não feitas
+    */
     removeDoneTodo: function(){
       this.$emit('remove:doneTodo', this.indexTodos, this.indexLists);
     }

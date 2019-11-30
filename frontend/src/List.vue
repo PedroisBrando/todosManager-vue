@@ -57,24 +57,45 @@ export default {
   },
   props: ['list', 'indexLists'],
   methods: {
+    /*
+      Emite evento para adicionar nova tarefa
+    */
     addTodo: function(newTodo, indexLists, urgency){
       this.$emit("add:todo", newTodo, indexLists, urgency);
     },
+    /*
+      Emite evento para remover tarefa da respectiva lista
+    */
     removeTodo: function(indexTodos, indexLists){
       this.$emit("remove:todo", indexTodos, indexLists);
     },
+    /*
+      Alterna o valor da flag para que seja possível variar entre as visualizações de tarefas já feitas e tarefas não feitas
+    */
     showDoneTodos: function(){
       this.list.showDoneTodos = !this.list.showDoneTodos;
     },
+    /*
+      Emite evento para que tarefas possam ser removidas da área de não feitas para a área de terminadas
+    */
     addDoneTodo: function(indexTodos, indexLists){
       this.$emit("add:doneTodo", indexTodos, indexLists);
     },
+    /*
+      Emite evento para retornar tarefas da área de tarefas feitas para a área de tarefas não feitas
+    */
     removeDoneTodo: function(indexTodos, indexLists){
       this.$emit("remove:doneTodo", indexTodos, indexLists);
     },
+    /*
+      Emite evento para adicionar nova tarefa
+    */
     addList: function(newListName){
       this.$emit('add:list', newListName);
     },
+    /*
+      Emite evento para remover uma lista
+    */
     removeList: function(){
       this.$emit('remove:list', this.indexLists);
     }

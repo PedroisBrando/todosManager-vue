@@ -37,16 +37,27 @@ export default{
     }
   },
   methods: {
+    /*
+      Emite o evento para que possa ser feita a busca por listas com o nome condizente completamente ou parcialmente com
+      o texto escrito pelo usuário. A função também limpa o campo de busca após a submissão
+    */
     searchLists: function(){
       this.$emit('search:lists', this.search);
       this.search = '';
     },
+    /*
+      Emite o evento para adicionar uma nova lista com o nome dado no campo de input pelo usuário. Não é permitido criar 
+      uma lista sem nome. Após adicionar uma nova lista todas as outras são também mostradas ao usuário
+    */
     addList: function(){
       if(this.newListName == '') return;
       this.$emit('add:list', this.newListName);
       this.newListName = '';
       this.showAllLists();
     },
+    /*
+      Emite um evento para que ao clicar no link da navabar 'Lists' sejam mostradas todas as listas do usuario
+    */
     showAllLists: function(){
       this.search = '';
       this.$emit('search:lists', this.search);

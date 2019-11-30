@@ -6,7 +6,7 @@
   <div class="widget-content p-0">
     <div class="widget-content-wrapper">
       <div class="widget-content-left mr-2">
-        <div class="custom-checkbox custom-control"> <input class="custom-control-input" v-model="todo.check" :id="id" type="checkbox" :value="todo.check"><label class="custom-control-label" :for="id">&nbsp;</label> </div>
+        <div v-if="!showDoneTodos" class="custom-checkbox custom-control"> <input class="custom-control-input" v-model="todo.check" :id="id" type="checkbox" :value="todo.check"><label class="custom-control-label" :for="id">&nbsp;</label> </div>
       </div>
       <div class="widget-content-left">
         <div class="widget-heading">{{ todo.title }}</div>

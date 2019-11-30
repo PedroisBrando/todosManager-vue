@@ -4,8 +4,8 @@
   v-on:search:lists="searchLists"
   v-on:add:list="addList">
   </app-navbar>
-  <div class="card-columns">
-    <div v-for="(list, indexLists) in visibleLists">
+  <div class="card-group">
+    <div class="teste" v-for="(list, indexLists) in visibleLists">
       <app-list
       :list="visibleLists[indexLists]"
       :indexLists="indexLists"

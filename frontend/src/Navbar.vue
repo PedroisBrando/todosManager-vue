@@ -42,6 +42,7 @@ export default{
       this.search = '';
     },
     addList: function(){
+      if(this.newListName == '') return;
       this.$emit('add:list', this.newListName);
       this.newListName = '';
       this.showAllLists();

@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     addTodo: function(){
+      if(this.newTodo == '') return;
       this.$emit('add:todo', this.newTodo, this.indexLists, this.urgency);
       this.newTodo = '';
     }

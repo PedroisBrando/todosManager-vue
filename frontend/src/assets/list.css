@@ -215,6 +215,10 @@ i {
   padding-bottom: 7px;
 }
 
+.teste {
+  margin: auto auto;
+}
+
 .card-columns {
   @include media-breakpoint-only(lg) {
     column-count: 4;

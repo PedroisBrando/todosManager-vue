@@ -13,7 +13,8 @@
       v-on:add:todo="addTodo"
       v-on:remove:todo="removeTodo"
       v-on:add:doneTodo="addDoneTodo"
-      v-on:remove:list="removeList">
+      v-on:remove:list="removeList"
+      v-on:remove:doneTodo="removeDoneTodo">
       </app-list>
     </div>
   </div>
@@ -123,6 +124,10 @@ export default {
     addDoneTodo: function(indexTodos, indexLists){
       let obj = this.allLists[indexLists].allTodos.splice(indexTodos, 1);
       this.allLists[indexLists].doneTodos.push(obj[0]);
+    },
+    removeDoneTodo: function(indexTodos, indexLists){
+      let obj = this.allLists[indexLists].doneTodos.splice(indexTodos, 1);
+      this.allLists[indexLists].allTodos.push(obj[0]);
     },
     searchLists: function(search){
       this.searchQuery = search;

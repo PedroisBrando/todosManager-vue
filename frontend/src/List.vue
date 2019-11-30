@@ -26,7 +26,8 @@
                 :todo="list.doneTodos[indexTodos]"
                 :indexTodos="indexTodos"
                 :indexLists="indexLists"
-                v-on:remove:todo="removeTodo">
+                :showDoneTodos='list.showDoneTodos'
+                v-on:remove:doneTodo="removeDoneTodo">
                 </app-item>
               </ul>
             </div>
@@ -67,6 +68,9 @@ export default {
     },
     addDoneTodo: function(indexTodos, indexLists){
       this.$emit("add:doneTodo", indexTodos, indexLists);
+    },
+    removeDoneTodo: function(indexTodos, indexLists){
+      this.$emit("remove:doneTodo", indexTodos, indexLists);
     },
     addList: function(newListName){
       this.$emit('add:list', newListName);

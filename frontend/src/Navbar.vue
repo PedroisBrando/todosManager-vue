@@ -10,7 +10,7 @@
         <a class="nav-link" @click="showAllLists()" href="#">Lists <span class="sr-only">(Página atual)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#" @click="request()">Link</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Desativado</a>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default{
   data(){
     return {
@@ -61,6 +63,11 @@ export default{
     showAllLists: function(){
       this.search = '';
       this.$emit('search:lists', this.search);
+    },
+    request: function(){
+      axios.get('http://localhost:1337/user').then(response => {
+        console.log(response);
+      })
     }
   }
 }

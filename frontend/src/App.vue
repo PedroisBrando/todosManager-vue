@@ -2,7 +2,9 @@
 <div>
   <app-navbar
   v-on:search:lists="searchLists"
-  v-on:add:list="addList">
+  v-on:add:list="addList"
+  v-on:request="request"
+  v-on:remove:all="removeAll">
   </app-navbar>
   <div class="card-group">
     <div class="teste" v-for="(list, indexLists) in visibleLists">
@@ -24,6 +26,8 @@
 <script>
 import List from './List'
 import Navbar from './Navbar'
+
+import axios from 'axios'
 
 export default {
   data: function () {
@@ -133,6 +137,28 @@ export default {
     'app-navbar': Navbar,
   },
   methods: {
+    request: function(){
+      axios.get('http://localhost:1337/create_todos').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/create_lists').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/create_users').then(response => {
+        console.log(response);
+      })
+    },
+    removeAll: function(){
+      axios.get('http://localhost:1337/destroy_todos').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/destroy_lists').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/destroy_users').then(response => {
+        console.log(response);
+      })
+    },
     /*
       Adiciona tarefas às respectivas listas
     */

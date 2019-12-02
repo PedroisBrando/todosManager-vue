@@ -36,7 +36,7 @@ module.exports = {
         res.send(500, {error: 'Database Error'});
       }
       res.redirect('/user');
-    })
+    });
   }
 
 };

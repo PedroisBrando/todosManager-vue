@@ -14,10 +14,10 @@ module.exports = {
       collection: 'todo',
       via: 'ownerList'
     },
-    /*doneTodos: {
+    doneTodos: {
       collection: 'todo',
       via: 'ownerList'
-    },*/
+    },
     ownerUser: {
       model: 'user',
     }

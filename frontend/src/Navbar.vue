@@ -65,26 +65,11 @@ export default{
       this.$emit('search:lists', this.search);
     },
     request: function(){
-      axios.get('http://localhost:1337/create_todos').then(response => {
-        console.log(response);
-      })
-      axios.get('http://localhost:1337/create_lists').then(response => {
-        console.log(response);
-      })
-      axios.get('http://localhost:1337/create_users').then(response => {
-        console.log(response);
-      })
+      this.$emit('request');
     },
     removeAll: function(){
-      axios.get('http://localhost:1337/destroy_todos').then(response => {
-        console.log(response);
-      })
-      axios.get('http://localhost:1337/destroy_lists').then(response => {
-        console.log(response);
-      })
-      axios.get('http://localhost:1337/destroy_users').then(response => {
-        console.log(response);
-      })
+      this.$emit('remove:all');
+      
     }
   }
 }

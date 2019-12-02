@@ -20,6 +20,15 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  'get /create_users': 'UserController.createAll',
+  'get /destroy_users': 'UserController.destroyAll',
+  'get /create_lists': 'ListController.createAll',
+  'get /destroy_lists': 'ListController.destroyAll',
+  'get /create_todos': 'TodoController.createAll',
+  'get /destroy_todos': 'TodoController.destroyAll',
+  'get /delete_user/:id': 'UserController.deleteUser',
+  'get /delete_list/:id': 'ListController.deleteList',
+  'get /delete_todo/:id': 'TodoController.deleteTodo',
 
 
   /***************************************************************************

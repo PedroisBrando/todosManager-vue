@@ -13,7 +13,7 @@
         <a class="nav-link" href="#" @click="request()">Link</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Desativado</a>
+        <a class="nav-link" href="#" @click="removeAll()">Desativado</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -65,7 +65,24 @@ export default{
       this.$emit('search:lists', this.search);
     },
     request: function(){
-      axios.get('http://localhost:1337/user').then(response => {
+      axios.get('http://localhost:1337/create_todos').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/create_lists').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/create_users').then(response => {
+        console.log(response);
+      })
+    },
+    removeAll: function(){
+      axios.get('http://localhost:1337/destroy_todos').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/destroy_lists').then(response => {
+        console.log(response);
+      })
+      axios.get('http://localhost:1337/destroy_users').then(response => {
         console.log(response);
       })
     }

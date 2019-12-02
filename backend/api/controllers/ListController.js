@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  create_lists: async function(req, res){
+  createAll: async function(req, res){
     try{
       let lists = [
         {'name': 'Office', 'ownerUser': 1},
@@ -22,6 +22,22 @@ module.exports = {
     sails.log(createdLists);
     return res.json(createdLists)
   },
+  destroyAll: function(req, res){
+    List.destroy({}).exec(function(err){
+      if(err){
+        res.send(500, {error: 'Database Error'});
+      }
+      res.redirect('/user');
+    });
+  },
+  deleteList: function(req, res){
+    List.destroy({id: req.params.id}).exec(function(err){
+      if(err){
+        res.send(500, {error: 'Database Error'});
+      }
+      res.redirect('/user');
+    })
+  }
 
 };
 

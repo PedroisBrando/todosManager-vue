@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  create_todos: async function(req, res){
+  createAll: async function(req, res){
     try{
       let todos = [
         {'title': 'Call Sam For Payments', 'urgency': 'green', 'check': false, 'ownerList': 1},
@@ -20,7 +20,7 @@ module.exports = {
         {'title': 'Ask for Lunch to Clients', 'urgency': 'green', 'check': false, 'ownerList': 2},
       ];
       let createdTodos = await Todo.createEach(todos).fetch();
-      let pop = await Todo.find().populate('lists');
+      let pop = await Todo.find().populate('list');
     }catch(err){
       sails.log(err.name);
       return res.json('Record in Todos already exists');
@@ -28,6 +28,22 @@ module.exports = {
     sails.log(createdTodos);
     return res.json(createdTodos);
   },
+  destroyAll: function(req, res){
+    Todo.destroy({}).exec(function(err){
+      if(err){
+        res.send(500, {error: 'Database Error'});
+      }
+      res.redirect('/user');
+    });
+  },
+  deleteTodo: function(req, res){
+    Todo.destroy({id: req.params.id}).exec(function(err){
+      if(err){
+        res.send(500, {error: 'Database Error'});
+      }
+      res.redirect('/user');
+    })
+  }
 
 };
 

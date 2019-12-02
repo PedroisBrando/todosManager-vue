@@ -36,6 +36,7 @@ export default {
       nextListId: 2, //id da próxima lista a ser adicionada
       searchQuery: '', //texto para a pesquisa entre as listas
       visibleLists: [], //armazena o resultado da pesquisa atual para mostrar as listas condizentes
+      doneTodo: '',
       showDoneTodos: false,
       allLists: [/*{ //array com todas as listas do usuário
           listId: 0, //id da list
@@ -152,16 +153,12 @@ export default {
       Adiciona tarefas às respectivas listas
     */
     addTodo: function(newTodo, indexLists, urgency){
-      /*let obj = {title: newTodo, urgency: urgency, check: false};
-      this.allLists[indexLists].nextTodoId++;
-      this.allLists[indexLists].showDoneTodos = false;
-      this.allLists[indexLists].allTodos.push(obj);*/
       axios.post('http://localhost:1337/todo', {
         title: newTodo,
         urgency: urgency,
         check: false,
         ownerList: this.visibleLists[indexLists].id,
-        ownerListDode: this.visibleLists[indexLists].id,
+        ownerListDone: null,
       })
       .then(function(response){
         console.log(response);
@@ -177,22 +174,50 @@ export default {
     removeTodo: function(indexTodos, indexLists){
       axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexTodos].allTodos[indexTodos].id)
       .then((response) => {
-        
+      
+      })
+    },
+    removeTodoFromDone: function(indexTodos, indexLists){
+      axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexTodos].doneTodos[indexTodos].id)
+      .then((response) => {
+      
       })
     },
     /*
       Remove a tarefa do array de tarefas nao feitas e o adiciona no array de tarefas já feitas
     */
     addDoneTodo: function(indexTodos, indexLists){
-      let obj = this.allLists[indexLists].allTodos.splice(indexTodos, 1);
-      this.allLists[indexLists].doneTodos.push(obj[0]);
+      axios.post('http://localhost:1337/todo', {
+        title: this.visibleLists[indexLists].allTodos[indexTodos].title,
+        urgency: this.visibleLists[indexLists].allTodos[indexTodos].urgency,
+        check: false,
+        ownerList: null,
+        ownerListDone: this.visibleLists[indexLists].id,
+      })
+      .then(function(response){
+        console.log(response);
+      });
+      this.removeTodo(indexTodos, indexLists);
+      this.updateVisibleLists();
+      //console.log(doneTodo);
     },
     /*
       Retorna a tarefa do array de tareefas feitas para o array de tarefas não feitas
     */
     removeDoneTodo: function(indexTodos, indexLists){
-      let obj = this.allLists[indexLists].doneTodos.splice(indexTodos, 1);
-      this.allLists[indexLists].allTodos.push(obj[0]);
+      console.log('oi');
+      axios.post('http://localhost:1337/todo', {
+        title: this.visibleLists[indexLists].doneTodos[indexTodos].title,
+        urgency: this.visibleLists[indexLists].doneTodos[indexTodos].urgency,
+        check: false,
+        ownerList: this.visibleLists[indexLists].id,
+        ownerListDone: null,
+      })
+      .then(function(response){
+        console.log(response);
+      });
+      this.removeTodoFromDone(indexTodos, indexLists);
+      this.updateVisibleLists();
     },
     /*
       Responsável por iniciar a busca da lista, chamando 'filteredLists'. Obs: quando o usuário faz uma busca e em seguida

@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  attributes: {
+  /*attributes: {
     name: {
       type: 'string'
     },
@@ -16,6 +16,6 @@ module.exports = {
     },
     //friends
   },
-  datastore: 'default',
+  datastore: 'default',*/
 };
 

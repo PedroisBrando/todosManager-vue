@@ -6,21 +6,14 @@
  */
 
 module.exports = {
-  createAll: async function(req, res){
-    try{
-      let lists = [
-        {'name': 'Office', 'ownerUser': 1},
-        {'name': 'House', 'ownerUser': 1},
-        {'name': 'Office', 'ownerUser': 2},
-      ];
-      let createdLists = await List.createEach(lists).fetch();
-      let pop = await List.find().populate('user');
-    }catch(err){
-      sails.log(err.name);
-      return res.json('Record in Lists already exists');
-    }
-    sails.log(createdLists);
-    return res.json(createdLists)
+  addList: function(req, res){
+    let name = req.body.name;
+    List.create({name: name}).exec(function(err){
+      if(err){
+        res.send(500, {error: 'Database Error'});
+      }
+      res.redirect('/list');
+    });
   },
   destroyAll: function(req, res){
     List.destroy({}).exec(function(err){
@@ -31,11 +24,12 @@ module.exports = {
     });
   },
   deleteList: function(req, res){
+    console.log(req.params.id);
     List.destroy({id: req.params.id}).exec(function(err){
       if(err){
         res.send(500, {error: 'Database Error'});
       }
-      res.redirect('/user');
+      res.redirect('/list');
     });
   }
 

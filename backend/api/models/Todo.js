@@ -19,6 +19,9 @@ module.exports = {
     },
     ownerList: {
       model: 'list',
+    },
+    ownerListDone: {
+      model: 'list'
     }
   },
   datastore: 'default',

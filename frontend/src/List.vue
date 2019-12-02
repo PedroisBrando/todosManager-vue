@@ -4,15 +4,15 @@
     <div class="card-hover-shadow-2x mb-3 card">
       <app-header
       :listName="list.name"
-      :showDone="list.showDoneTodos"
+      :showDone="showDoneTodos"
       v-on:remove:list="removeList"
-      v-on:show:doneTodos="showDoneTodos">
+      v-on:show:doneTodos="changeDoneAll">
       </app-header>
       <div class="scroll-area-sm">
         <perfect-scrollbar class="ps-show-limits">
           <div style="position: static;" class="ps ps--active-y">
             <div class="ps-content">
-              <ul v-if="!list.showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.allTodos'>
+              <ul v-if="!showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.allTodos'>
                 <app-item 
                 :todo="list.allTodos[indexTodos]"
                 :indexTodos="indexTodos"
@@ -21,12 +21,12 @@
                 v-on:add:doneTodo="addDoneTodo">
                 </app-item>
               </ul>
-              <ul v-if="list.showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.doneTodos'>
+              <ul v-if="showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.doneTodos'>
                 <app-item 
                 :todo="list.doneTodos[indexTodos]"
                 :indexTodos="indexTodos"
                 :indexLists="indexLists"
-                :showDoneTodos='list.showDoneTodos'
+                :showDoneTodos='showDoneTodos'
                 v-on:remove:doneTodo="removeDoneTodo">
                 </app-item>
               </ul>
@@ -36,7 +36,7 @@
       </div>
       <app-footer 
       v-on:add:todo="addTodo"
-      :showDoneTodos="list.showDoneTodos"
+      :showDoneTodos="showDoneTodos"
       :indexLists="indexLists">
       </app-footer>
     </div>
@@ -55,7 +55,7 @@ export default {
     'app-header': Header,
     'app-footer': Footer,
   },
-  props: ['list', 'indexLists'],
+  props: ['list', 'indexLists', 'showDoneTodos'],
   methods: {
     /*
       Emite evento para adicionar nova tarefa
@@ -72,8 +72,9 @@ export default {
     /*
       Alterna o valor da flag para que seja possível variar entre as visualizações de tarefas já feitas e tarefas não feitas
     */
-    showDoneTodos: function(){
-      this.list.showDoneTodos = !this.list.showDoneTodos;
+    changeDoneAll: function(){
+      console.log("bora");
+      this.showDoneTodos = !this.showDoneTodos;
     },
     /*
       Emite evento para que tarefas possam ser removidas da área de não feitas para a área de terminadas

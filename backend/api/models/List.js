@@ -16,11 +16,11 @@ module.exports = {
     },
     doneTodos: {
       collection: 'todo',
-      via: 'ownerList'
+      via: 'ownerListDone'
     },
-    ownerUser: {
+    /*ownerUser: {
       model: 'user',
-    }
+    }*/
   },
   datastore: 'default',
 };

@@ -4,7 +4,7 @@
     <div class="card-hover-shadow-2x mb-3 card">
       <app-header
       :listName="list.name"
-      :showDone="showDoneTodos"
+      :showDone="showDT"
       v-on:remove:list="removeList"
       v-on:show:doneTodos="changeDoneAll">
       </app-header>
@@ -12,7 +12,7 @@
         <perfect-scrollbar class="ps-show-limits">
           <div style="position: static;" class="ps ps--active-y">
             <div class="ps-content">
-              <ul v-if="!showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.allTodos'>
+              <ul v-if="!showDT" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.allTodos'>
                 <app-item 
                 :todo="list.allTodos[indexTodos]"
                 :indexTodos="indexTodos"
@@ -21,12 +21,12 @@
                 v-on:add:doneTodo="addDoneTodo">
                 </app-item>
               </ul>
-              <ul v-if="showDoneTodos" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.doneTodos'>
+              <ul v-if="showDT" class=" list-group list-group-flush" v-for='(item, indexTodos) in list.doneTodos'>
                 <app-item 
                 :todo="list.doneTodos[indexTodos]"
                 :indexTodos="indexTodos"
                 :indexLists="indexLists"
-                :showDoneTodos='showDoneTodos'
+                :showDoneTodos='showDT'
                 v-on:remove:doneTodo="removeDoneTodo">
                 </app-item>
               </ul>
@@ -36,7 +36,7 @@
       </div>
       <app-footer 
       v-on:add:todo="addTodo"
-      :showDoneTodos="showDoneTodos"
+      :showDoneTodos="showDT"
       :indexLists="indexLists">
       </app-footer>
     </div>
@@ -54,6 +54,11 @@ export default {
     'app-item': Item,
     'app-header': Header,
     'app-footer': Footer,
+  },
+  data (){
+    return {
+      showDT: this.showDoneTodos,
+    }
   },
   props: ['list', 'indexLists', 'showDoneTodos'],
   methods: {
@@ -73,8 +78,7 @@ export default {
       Alterna o valor da flag para que seja possível variar entre as visualizações de tarefas já feitas e tarefas não feitas
     */
     changeDoneAll: function(){
-      console.log("bora");
-      this.showDoneTodos = !this.showDoneTodos;
+      this.showDT = !this.showDT;
     },
     /*
       Emite evento para que tarefas possam ser removidas da área de não feitas para a área de terminadas

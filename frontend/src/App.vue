@@ -38,89 +38,17 @@ export default {
       visibleLists: [], //armazena o resultado da pesquisa atual para mostrar as listas condizentes
       doneTodo: '',
       showDoneTodos: false,
-      allLists: [/*{ //array com todas as listas do usuário
-          listId: 0, //id da list
-          nextTodoId: 4, //id da próxima tarefa a ser adicionado
-          name: 'Office', //nome da lista
-          showDoneTodos: false, //flag que indica se serão mostrados as tarefas feitas ou não feitas
-          doneTodos: [], //armazena as tarefas já feitas
-          allTodos: [{ //array com todos as tarefas não feitas da respectiva lista
-              todoId: 0, //id da tarefa
-              title: 'Call Sam For Payments', //titulo da tarefa
-              by: 'Bob', //por quem foi adicionada a tarefa
-              urgency: 'yellow', //indica a cor que aparecera do lado da tarefa indicando sua urgencia
-              check: false, //verifica se a tarefa está checada ou não
-            },
-            {
-              todoId: 1,
-              title: 'Make payment to Bluedart',
-              by: 'Bob',
-              urgency: 'green',
-              check: false,
-            },
-            {
-              todoId: 2,
-              title: 'Office grocery shopping',
-              by: 'Bob',
-              urgency: 'red',
-              check: false,
-            },
-            {
-              todoId: 3,
-              title: 'Ask for Lunch to Clients',
-              by: 'Bob',
-              urgency: 'green',
-              check: false,
-            }
-          ],
-        },
-        {
-          listId: 1,
-          nextTodoId: 4,
-          name: 'House',
-          showDoneTodos: false,
-          doneTodos: [],
-          allTodos: [{
-              todoId: 0,
-              title: 'Call Sam For Payments',
-              by: 'Bob',
-              urgency: 'yellow',
-              check: false,
-            },
-            {
-              todoId: 1,
-              title: 'Make payment to Bluedart',
-              by: 'Bob',
-              urgency: 'green',
-              check: false,
-            },
-            {
-              todoId: 2,
-              title: 'Office grocery shopping',
-              by: 'Bob',
-              urgency: 'red',
-              check: false,
-            },
-            {
-              todoId: 3,
-              title: 'Ask for Lunch to Clients',
-              by: 'Bob',
-              urgency: 'green',
-              check: false,
-            }
-          ],
-        }*/
-      ],
+      allLists: [],
     }
   },
   /*
     Deixa visível ao usuário ao entra na aplicação todas as suas listas
   */
-  created() {
-    axios.get('http://localhost:1337/list').then((response) => {
+  mounted() {
+    return  axios.get('http://localhost:1337/list').then((response) => {
       this.allLists = response.data;
+      this.visibleLists = response.data;
     })
-    this.visibleLists = this.allLists;
   },
   computed: {
     /*
@@ -145,8 +73,8 @@ export default {
     updateVisibleLists: function(){
       axios.get('http://localhost:1337/list').then((response) => {
         this.allLists = response.data;
+        this.visibleLists = response.data;
       })
-      this.visibleLists = this.allLists;
     },
     removeAll: function(){},
     /*
@@ -160,27 +88,27 @@ export default {
         ownerList: this.visibleLists[indexLists].id,
         ownerListDone: null,
       })
-      .then(function(response){
+      .then((response) => {
         console.log(response);
+        this.updateVisibleLists();
       })
-      .catch(function(err){
+      .catch((err) => {
         console.log(err);
       })
-      this.updateVisibleLists();
     },
     /*
       Remove as tarefas das respectivas listas
     */
     removeTodo: function(indexTodos, indexLists){
-      axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexTodos].allTodos[indexTodos].id)
+      axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexLists].allTodos[indexTodos].id)
       .then((response) => {
-      
+        this.updateVisibleLists();
       })
     },
     removeTodoFromDone: function(indexTodos, indexLists){
       axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexTodos].doneTodos[indexTodos].id)
       .then((response) => {
-      
+        this.updateVisibleLists();
       })
     },
     /*
@@ -194,18 +122,18 @@ export default {
         ownerList: null,
         ownerListDone: this.visibleLists[indexLists].id,
       })
-      .then(function(response){
+      .then((response) => {
         console.log(response);
+        this.removeTodo(indexTodos, indexLists);
+        this.updateVisibleLists();
       });
-      this.removeTodo(indexTodos, indexLists);
-      this.updateVisibleLists();
+      
       //console.log(doneTodo);
     },
     /*
       Retorna a tarefa do array de tareefas feitas para o array de tarefas não feitas
     */
     removeDoneTodo: function(indexTodos, indexLists){
-      console.log('oi');
       axios.post('http://localhost:1337/todo', {
         title: this.visibleLists[indexLists].doneTodos[indexTodos].title,
         urgency: this.visibleLists[indexLists].doneTodos[indexTodos].urgency,
@@ -213,11 +141,12 @@ export default {
         ownerList: this.visibleLists[indexLists].id,
         ownerListDone: null,
       })
-      .then(function(response){
+      .then((response) => {
         console.log(response);
+        this.removeTodoFromDone(indexTodos, indexLists);
+        this.updateVisibleLists();
       });
-      this.removeTodoFromDone(indexTodos, indexLists);
-      this.updateVisibleLists();
+      
     },
     /*
       Responsável por iniciar a busca da lista, chamando 'filteredLists'. Obs: quando o usuário faz uma busca e em seguida
@@ -239,24 +168,25 @@ export default {
       axios.post('http://localhost:1337/list', {
         name: newListName,
       })
-      .then(function(response){
+      .then((response) => {
         console.log(response);
+        this.updateVisibleLists();
       })
-      .catch(function(err){
+      .catch((err) => {
         console.log(err);
       })
-      this.updateVisibleLists();
+      
     },
     /*
       Remove listas do array de todas as listas e chama a função 'searchLists' com o texto vazio para atualizar o 
       array de 'visibleTodos' mostrando todas as listas ainda presentes.
     */
     removeList: function(indexLists){
-      axios.get('http://localhost:1337/delete_list/' + this.visibleLists[indexLists].id)
+      return axios.get('http://localhost:1337/delete_list/' + this.visibleLists[indexLists].id)
       .then((response) => {
-        
+        this.updateVisibleLists();
       })
-      this.updateVisibleLists();
+      
     }
   }
 }

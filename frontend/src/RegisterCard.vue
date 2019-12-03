@@ -3,7 +3,7 @@
     <div class="card card-signin my-5">
       <div class="card-body">
         <h5 class="card-title text-center">Sign Up</h5>
-        <form class="form-signin">
+        <div class="form-signin">
           <div class="form-label-group">
             <input v-model="username" type="text" id="registerUsername" name="username" class="form-control" placeholder="Username" required autofocus>
             <label for="registerUsername">Username</label>
@@ -13,9 +13,9 @@
             <input v-model="password" type="password" id="registerPassword" name="password" class="form-control" placeholder="Password" required>
             <label for="registerPassword">Password</label>
           </div>
-          <router-link class="btn btn-lg btn-google btn-block text-uppercase" to="/user" @click="registerUser()">Register</router-link>
+          <button class="btn btn-lg btn-google btn-block text-uppercase"  @click="registerUser()">Register</button>
           <hr class="my-4">
-        </form>
+        </div>
       </div>
     </div>
   </div>

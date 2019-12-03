@@ -26,7 +26,11 @@ module.exports.routes = {
   'get /delete_user/:id': 'UserController.deleteUser',
   'get /delete_list/:id': 'ListController.deleteList',
   'get /delete_todo/:id': 'TodoController.deleteTodo',
-  'post /list': 'ListConstroller.addList'
+  'post /list': 'ListConstroller.addList',
+  'post /user': 'UserController.addUser',
+  'post /login': 'AuthController.login',
+  'get /logout': 'AuthController.logout',
+
 
 
   /***************************************************************************

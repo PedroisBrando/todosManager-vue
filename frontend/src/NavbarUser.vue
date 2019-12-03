@@ -7,7 +7,7 @@
     <a class="navbar-brand" href="#">Todo Lists</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" @click="showAllLists()" href="#">Lists <span class="sr-only">(Página atual)</span></a>
+        <a class="nav-link" @click="showAllLists()" href="#/user">Lists <span class="sr-only">(Página atual)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" @click="request()">Link</a>
@@ -24,6 +24,7 @@
       <input v-model="newListName" class="form-control mr-sm-2" type="text" placeholder="Name of new list" aria-label="Pesquisar">
       <a href="#" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
     </form>
+    <router-link to="/" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="logout()">Logout</router-link>
   </div>
 </nav>
 </template>
@@ -69,7 +70,12 @@ export default{
     },
     removeAll: function(){
       this.$emit('remove:all');
-      
+    },
+    logout: function(){
+      axios.get('http://localhost:1337/logout')
+        .then((response) => {
+        console.log(response);
+      })
     }
   }
 }

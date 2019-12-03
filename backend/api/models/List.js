@@ -18,9 +18,9 @@ module.exports = {
       collection: 'todo',
       via: 'ownerListDone'
     },
-    /*ownerUser: {
+    ownerUser: {
       model: 'user',
-    }*/
+    }
   },
   datastore: 'default',
 };

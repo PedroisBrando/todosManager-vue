@@ -29,7 +29,7 @@ module.exports.routes = {
   'post /todo': 'TodoController.addTodo',
   'post /list': 'ListController.addList',
   'get /user/:id/list': 'ListController.showLists',
-  'post /user': 'UserController.addUser',
+  'post /user': 'AuthController.register',
   'post /login': 'AuthController.login',
   'get /logout': 'AuthController.logout',
 

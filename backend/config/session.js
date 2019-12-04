@@ -19,6 +19,17 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
   secret: '5e396bc9b8b412b868c265aee9915a3d',
+  /*adapter: 'connect-pg',
+  url: 'postgresql://postgres:password@localhost:3000/todo-manager',
+  database: 'todo-manager',
+  host: 'localhost',
+  user: 'postgres',
+  password: 'password',
+  port: 3000,
+  collection: 'sessions',
+  auto_reconnect: false,
+  ssl: false,
+  stringfy: true,*/
 
 
   /***************************************************************************

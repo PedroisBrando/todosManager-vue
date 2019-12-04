@@ -45,6 +45,7 @@ export default {
     Deixa visível ao usuário ao entra na aplicação todas as suas listas
   */
   mounted() {
+    console.log(this.$userId);
     return  axios.get('http://localhost:1337/user/' + this.$route.params.id + '/list').then((response) => {
       this.allLists = response.data;
       this.visibleLists = response.data;

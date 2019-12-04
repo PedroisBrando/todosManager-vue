@@ -27,7 +27,7 @@
   customToJSON: function() {
     return _.omit(this, ['password'])
   },
-  beforeCreate: function(user, cb){
+  beforeCreate: function(err, cb){
     bcrypt.genSalt(10, function(err, salt){
       bcrypt.hash(user.password, salt, null, function(err, hash){
         if(err) return cb(err);

@@ -38,7 +38,11 @@
           password: this.password,
          }).then((response) => {
           console.log(response);
-          this.$router.push('/user/' + response.data.user.id);
+          if(response.data.user == false);
+          else{
+             this.$router.push('/user/' + response.data.id);
+
+          }
          })
       }
     }

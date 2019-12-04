@@ -70,6 +70,15 @@
     //   return middlewareFn;
     // })(),
 
+     /*passportInit: (function(){
+      let passport = require('passport');
+      return passport.initialize();
+     })(), 
+     passportSession: (function(){
+      let passport = require('passport');
+      return passport.session();
+     })*/
+
   },
 
 };

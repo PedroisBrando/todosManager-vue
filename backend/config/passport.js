@@ -1,35 +1,32 @@
 const passport = require('passport'),
-      LocalStrategy = require('passport-local').Strategy,
-      bcrypt = require('bcrypt-nodejs');
+LocalStratrgy = require('passport-local').Strategy,
+bcrypt = require('bcrypt-nodejs');
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
+//Serialize the User
+passport.serializeUser(function(user, cb){
+    cb(null, user.id);
 });
 
+//Deserialize the User
 passport.deserializeUser(function(id, cb){
-  User.findOne({id}, function(err, users) {
-    cb(err, users);
-  });
-});
-
-passport.use(new LocalStrategy({
-  usernameField: 'username',
-  passwordField: 'password'
-}, function(username, password, cb){
-
-User.findOne({username: username}, function(err, user){
-  if(err) return cb(err);
-  if(!user) return cb(null, false, {message: 'Username not found'});
-    
-bcrypt.compare(password, user.password, function(err, res){
-  if(!res) return cb(null, false, { message: 'Invalid Password' });
-      
-let userDetails = {
-  username: user.username,
-  id: user.id
-};
-      
-return cb(null, userDetails, { message: 'Login Succesful'});
+    User.findOne({id}).exec(function(err, user){
+        cb(err, user);
     });
-  });
+})
+
+//Local
+passport.use(new LocalStratrgy({
+        usernameField: 'username',
+        passportField: 'password'
+    }, function(username, password, cb){
+
+    User.findOne({username: username}).exec(function(err, user){
+        if(err) return cb(err);
+        if(!user) return cb(null, false, {message: 'Usernaaame not found'});
+
+        bcrypt.compare(password, user.password, function(err, res){
+            if(!res) return cb(null, false, {message: 'Invalid Password'});
+            return cb(null, user, {message: 'Login Succesful'});
+        })
+    });
 }));

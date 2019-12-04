@@ -186,6 +186,14 @@ export default {
       array de 'visibleTodos' mostrando todas as listas ainda presentes.
     */
     removeList: function(indexLists){
+      let todos = this.visibleLists[indexLists].allTodos.length;
+      let doneTodos = this.visibleLists[indexLists].doneTodos.length;
+      for(let i = 0; i < doneTodos; i++){
+        this.removeTodoFromDone(i, indexLists);
+      }
+      for(let i = 0; i < todos; i++){
+        this.removeTodo(i, indexLists);
+      }
       return axios.get('http://localhost:1337/delete_list/' + this.visibleLists[indexLists].id)
       .then((response) => {
         this.updateVisibleLists();

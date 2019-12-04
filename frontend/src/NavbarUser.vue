@@ -16,14 +16,14 @@
         <a class="nav-link" href="#" @click="removeAll()">Desativado</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <div class="form-inline my-2 my-lg-0">
       <input v-model="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Pesquisar">
       <a href="#" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="searchLists()">Search Lists</a>
-    </form>
-    <form class="form-inline my-2 my-lg-0">
+    </div>
+    <div class="form-inline my-2 my-lg-0">
       <input v-model="newListName" class="form-control mr-sm-2" type="text" placeholder="Name of new list" aria-label="Pesquisar">
       <a class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
-    </form>
+    </div>
     <button class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="logout()">Logout</button>
   </div>
 </nav>
@@ -56,7 +56,7 @@ export default{
       if(this.newListName == '') return;
       this.$emit('add:list', this.newListName);
       this.newListName = '';
-      this.$router.push('/user/' + this.$route.params.id);
+      //this.$router.push('/user/' + this.$route.params.id);
       this.showAllLists();
     },
     /*

@@ -7,7 +7,7 @@
           <app-login-card v-on:logged:userId='loggedUserId'></app-login-card>
         </div>
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <app-register-card></app-register-card>
+          <app-register-card v-on:logged:userId='loggedUserId'></app-register-card>
         </div>
       </div>
     </div>

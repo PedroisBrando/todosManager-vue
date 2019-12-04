@@ -38,7 +38,9 @@
           password: this.password,
          }).then((response) => {
           console.log(response);
-          this.$router.push('/user/' + response.data.id);
+          this.loggedUserId = response.data.id;
+          this.$emit('logged:userId', this.loggedUserId);
+          this.$router.push('/user');
          })
       }
     }

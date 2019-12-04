@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view :userId="userId" v-on:logged:userId="loggedUserId" v-on:logout='logout'></router-view>
   </div>
 </template>
 
@@ -8,7 +8,15 @@
   export default {
     data (){
       return {
-
+        userId: '',
+      }
+    },
+    methods: {
+      loggedUserId: function(id){
+        this.userId = id;
+      },
+      logout: function(){
+        this.userId = '';
       }
     }
   }

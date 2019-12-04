@@ -4,7 +4,8 @@
   v-on:search:lists="searchLists"
   v-on:add:list="addList"
   v-on:request="updateVisibleLists"
-  v-on:remove:all="removeAll">
+  v-on:remove:all="removeAll"
+  v-on:logout="logout">
   </app-navbar-user>
   <div class="card-group">
     <div class="teste" v-for="(list, indexLists) in visibleLists">
@@ -31,6 +32,7 @@ import NavbarUser from './NavbarUser'
 import axios from 'axios'
 
 export default {
+  props: ['userId'],
   data: function () {
     return {
       nextListId: 2, //id da próxima lista a ser adicionada
@@ -45,8 +47,7 @@ export default {
     Deixa visível ao usuário ao entra na aplicação todas as suas listas
   */
   mounted() {
-    console.log(this.$userId);
-    return  axios.get('http://localhost:1337/user/' + this.$route.params.id + '/list').then((response) => {
+    return  axios.get('http://localhost:1337/user/' + this.userId + '/list').then((response) => {
       this.allLists = response.data;
       this.visibleLists = response.data;
     })
@@ -72,7 +73,8 @@ export default {
   },
   methods: {
     updateVisibleLists: function(){
-      axios.get('http://localhost:1337/user/' + this.$route.params.id + '/list').then((response) => {
+      console.log(this.userId);
+      axios.get('http://localhost:1337/user/' + this.userId + '/list').then((response) => {
         this.allLists = response.data;
         this.visibleLists = response.data;
       })
@@ -107,7 +109,7 @@ export default {
       })
     },
     removeTodoFromDone: function(indexTodos, indexLists){
-      axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexTodos].doneTodos[indexTodos].id)
+      axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexLists].doneTodos[indexTodos].id)
       .then((response) => {
         this.updateVisibleLists();
       })
@@ -168,7 +170,7 @@ export default {
     addList: function(newListName){
       axios.post('http://localhost:1337/list', {
         name: newListName,
-        ownerUser: this.$route.params.id,
+        ownerUser: this.userId,
       })
       .then((response) => {
         console.log(response);
@@ -188,7 +190,9 @@ export default {
       .then((response) => {
         this.updateVisibleLists();
       })
-      
+    },
+    logout: function(){
+      this.$emit('logout');
     }
   }
 }

@@ -28,7 +28,8 @@
     data() {
       return {
         username: '',
-        password: ''
+        password: '',
+        loggedUserId: ''
       }
     },
     methods: {
@@ -40,7 +41,9 @@
           console.log(response);
           if(response.data.user == false);
           else{
-             this.$router.push('/user/' + response.data.id);
+            this.loggedUserId = response.data.id;
+            this.$emit('logged:userId', this.loggedUserId);
+            this.$router.push('/user');
 
           }
          })

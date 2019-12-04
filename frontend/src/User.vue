@@ -45,9 +45,10 @@ export default {
     Deixa visível ao usuário ao entra na aplicação todas as suas listas
   */
   mounted() {
-    return  axios.get('http://localhost:1337/list').then((response) => {
-      this.allLists = response.data;
-      this.visibleLists = response.data;
+    return  axios.get('http://localhost:1337/user/' + this.$route.params.id).then((response) => {
+      console.log(response);
+      this.allLists = response.data.allLists;
+      this.visibleLists = response.data.allLists;
     })
   },
   computed: {
@@ -71,9 +72,9 @@ export default {
   },
   methods: {
     updateVisibleLists: function(){
-      axios.get('http://localhost:1337/list').then((response) => {
-        this.allLists = response.data;
-        this.visibleLists = response.data;
+      axios.get('http://localhost:1337/user/' + this.$route.params.id).then((response) => {
+        this.allLists = response.data.allLists;
+        this.visibleLists = response.data.allLists;
       })
     },
     removeAll: function(){},
@@ -89,8 +90,8 @@ export default {
         ownerListDone: null,
       })
       .then((response) => {
-        console.log(response);
         this.updateVisibleLists();
+        console.log(this.allLists[indexLists].allTodos);
       })
       .catch((err) => {
         console.log(err);
@@ -167,6 +168,7 @@ export default {
     addList: function(newListName){
       axios.post('http://localhost:1337/list', {
         name: newListName,
+        ownerUser: this.$route.params.id,
       })
       .then((response) => {
         console.log(response);

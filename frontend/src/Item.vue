@@ -9,7 +9,7 @@
         <div v-if="!showDoneTodos" class="custom-checkbox custom-control"> <input class="custom-control-input" v-model="todo.check" :id="id" type="checkbox" :value="todo.check"><label class="custom-control-label" :for="id">&nbsp;</label> </div>
       </div>
       <div class="widget-content-left">
-        <div class="widget-heading">{{ todo.title }}</div>
+        <div class="widget-heading">oi{{ todo.title }}</div>
         <div class="widget-subheading"><i>By {{ todo.by }}</i></div>
       </div>
       <div class="widget-content-right"> 
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  props: ['todo', "indexTodos", "indexLists", 'showDoneTodos'],
+  props: ['todo', 'indexTodos', 'indexLists', 'showDoneTodos'],
   data(){
     return {
       id: null, //armazena o id que será dado à checkbox dessa tarefa

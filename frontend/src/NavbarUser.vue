@@ -22,7 +22,7 @@
     </form>
     <form class="form-inline my-2 my-lg-0">
       <input v-model="newListName" class="form-control mr-sm-2" type="text" placeholder="Name of new list" aria-label="Pesquisar">
-      <a href="#" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
+      <a class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
     </form>
     <router-link to="/" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="logout()">Logout</router-link>
   </div>
@@ -56,6 +56,7 @@ export default{
       if(this.newListName == '') return;
       this.$emit('add:list', this.newListName);
       this.newListName = '';
+      this.$router.push('/user/' + this.$route.params.id);
       this.showAllLists();
     },
     /*
@@ -75,6 +76,7 @@ export default{
       axios.get('http://localhost:1337/logout')
         .then((response) => {
         console.log(response);
+        this.$router.push('/');
       })
     }
   }

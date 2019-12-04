@@ -10,7 +10,7 @@ module.exports = {
     let title = req.body.title;
     let urgency = req.body.urgency;
     let check = req.body.check;
-    let ownerList = req.body.onwerList;
+    let ownerList = req.body.ownerList;
     let ownerListDone = req.body.ownerListDone; 
     Todo.create({title: title, urgency: urgency, check: check, ownerList: ownerList, ownerListDone: ownerListDone}).exec(function(err){
       if(err){
@@ -34,7 +34,7 @@ module.exports = {
       }
       res.redirect('/list');
     });
-  }
+  },
 
 };
 

@@ -9,8 +9,8 @@
         <div v-if="!showDoneTodos" class="custom-checkbox custom-control"> <input class="custom-control-input" v-model="todo.check" :id="id" type="checkbox" :value="todo.check"><label class="custom-control-label" :for="id">&nbsp;</label> </div>
       </div>
       <div class="widget-content-left">
-        <div class="widget-heading">oi{{ todo.title }}</div>
-        <div class="widget-subheading"><i>By {{ todo.by }}</i></div>
+        <div class="widget-heading">{{ todo.title }}</div>
+        <!--<div class="widget-subheading"><i>By {{ todo.by }}</i></div>-->
       </div>
       <div class="widget-content-right"> 
       <button v-if="!showDoneTodos" class="border-0 btn-transition btn btn-outline-success" @click="addDoneTodo()"> <i class="fa fa-check"></i></button> 

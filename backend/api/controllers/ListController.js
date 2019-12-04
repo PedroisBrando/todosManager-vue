@@ -8,7 +8,10 @@
 module.exports = {
   addList: function(req, res){
     let name = req.body.name;
-    List.create({name: name}).exec(function(err){
+    let ownerUser = req.body.ownerUser;
+    let allTodos = [];
+    let doneTodos = [];
+    List.create({name: name, ownerUser: ownerUser, allTodos: allTodos, doneTodos: doneTodos}).exec(function(err){
       if(err){
         res.send(500, {error: 'Database Error'});
       }
@@ -24,13 +27,21 @@ module.exports = {
     });
   },
   deleteList: function(req, res){
-    console.log(req.params.id);
     List.destroy({id: req.params.id}).exec(function(err){
       if(err){
         res.send(500, {error: 'Database Error'});
       }
       res.redirect('/list');
     });
+  },
+  showLists: function(req, res){
+    let ownerUser = req.params.id;
+    List.find({ownerUser: ownerUser}).populateAll().exec(function(err, lists){
+      if(err){
+        res.send(500, {error: 'Database Erro'});
+      }
+      res.json(lists);
+    })
   }
 
 };

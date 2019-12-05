@@ -10,21 +10,21 @@
         <a class="nav-link" @click="showAllLists()" href="#/user">Lists <span class="sr-only">(Página atual)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" @click="request()">Link</a>
+       <!-- <a class="nav-link" href="#" @click="request()">Amigos</a> -->
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" @click="removeAll()">Desativado</a>
+       <!-- <a class="nav-link" href="#" @click="removeAll()">Desativado</a> -->
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
       <input v-model="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Pesquisar">
-      <a href="#" class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="searchLists()">Search Lists</a>
+      <a href="#" class="btn btn-outline-info btn-navbar my-2 my-sm-0" @click="searchLists()">Search Lists</a>
     </div>
     <div class="form-inline my-2 my-lg-0">
       <input v-model="newListName" class="form-control mr-sm-2" type="text" placeholder="Name of new list" aria-label="Pesquisar">
-      <a class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
+      <a href="#" class="btn btn-outline-info btn-navbar my-2 my-sm-0" @click="addList()">Add List</a>
     </div>
-    <button class="btn btn-outline-success btn-navbar my-2 my-sm-0" @click="logout()">Logout</button>
+    <button class="btn btn-outline-danger btn-navbar my-2 my-sm-0" @click="logout()">Logout</button>
   </div>
 </nav>
 </template>

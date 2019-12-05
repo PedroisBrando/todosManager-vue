@@ -12,9 +12,16 @@
       }
     },
     methods: {
+      /*
+      Ao receber um pedido de login da Home, pega o id do usuário autenticado para ser usada na requisição das suas lista
+      dentro do compenente 'User'
+      */
       loggedUserId: function(id){
         this.userId = id;
       },
+      /*
+      Apaga o valor do id passado para o componente 'User'
+      */
       logout: function(){
         this.userId = '';
       }

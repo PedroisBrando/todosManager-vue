@@ -32,6 +32,10 @@
       'app-register-card': RegisterCard,
     },
     methods: {
+      /*
+      Passa o id do usuário que tentou se logou, ou se registrou para o componente pai para que possa ser passado
+      para o componente 'User"
+      */
       loggedUserId: function(id){
         this.$emit('logged:userId', id);
       }

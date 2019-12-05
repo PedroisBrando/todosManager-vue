@@ -18,15 +18,22 @@
       type: 'string',
       required: true,
     },
+    //Todas as listas do usuário
     allLists: {
       collection: 'list',
       via: 'ownerUser'
     },
     //friends
   },
+  /*
+  Omite a senha quando o usuário logado é retornado
+  */
   customToJSON: function() {
-    return _.omit(this, ['password'])
+    return _.omit(this, ['password']);
   },
+  /*
+  Ao criar o usuário encripta a sua senha
+  */
   beforeCreate: function(user, cb){
     bcrypt.genSalt(10, function(err, salt){
       bcrypt.hash(user.password, salt, null, function(err, hash){
@@ -36,6 +43,9 @@
       });
     });
   },
+  /*
+  Utiliza o banco de dados default (Postgresql)
+  */
   datastore: 'default',
 };
 

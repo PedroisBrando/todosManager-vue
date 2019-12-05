@@ -14,10 +14,12 @@ module.exports = {
       collection: 'todo',
       via: 'ownerList'
     },
+    //Todas as tarefas da lista, sejam feitas ou não
     doneTodos: {
       collection: 'todo',
       via: 'ownerListDone'
     },
+    //Usuário a qual pertence
     ownerUser: {
       model: 'user',
     }

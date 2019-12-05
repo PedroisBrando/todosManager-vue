@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+  //Adiciona tarefa a lista
   addTodo: function(req, res){
     let title = req.body.title;
     let urgency = req.body.urgency;
@@ -19,6 +20,7 @@ module.exports = {
       res.redirect('/todo');
     });
   },
+  //Delete todas as tarefas de todas as listas de todos os usuários do servidor
   destroyAll: function(req, res){
     Todo.destroy({}).exec(function(err){
       if(err){
@@ -27,6 +29,7 @@ module.exports = {
       res.redirect('/user');
     });
   },
+  //Deleta tarefa específica
   deleteTodo: function(req, res){
     Todo.destroy({id: req.params.id}).exec(function(err){
       if(err){

@@ -13,8 +13,8 @@
             <input v-model="password" type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
             <label for="inputPassword">Password</label>
           </div>
-          <button class="btn btn-lg btn-primary btn-block text-uppercase" @click="loginUser()">Sign in</button>
           <hr class="my-4">
+          <button class="btn btn-lg btn-primary btn-block text-uppercase" @click="loginUser()">Sign in</button>
         </div>
       </div>
     </div>
@@ -33,6 +33,9 @@
       }
     },
     methods: {
+      /*
+      Faz um requisição de login com os dados informados pelo usuário
+      */
       loginUser: function(){
          axios.post('http://localhost:1337/login', {
           username: this.username,

@@ -17,9 +17,11 @@ module.exports = {
     check: {
       type: 'boolean',
     },
+    //A qual lista pertence
     ownerList: {
       model: 'list',
     },
+    //A qual lista pertence
     ownerListDone: {
       model: 'list'
     }

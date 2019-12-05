@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+  //Adiciona usuário 
   addUser: function(req, res){
     let username = req.body.username;
     let password = req.body.password;
@@ -16,6 +17,7 @@ module.exports = {
       res.redirect('/user');
     });
   },
+  //Deleta todos os usuários do servidor
   destroyAll: function(req, res){
     User.destroy({}).exec(function(err){
       if(err){
@@ -24,6 +26,7 @@ module.exports = {
       res.redirect('/user');
     });
   },
+  //Deleta usuário específico
   deleteUser: function(req, res){
     User.destroy({id: req.params.id}).exec(function(err){
       if(err){

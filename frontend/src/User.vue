@@ -4,7 +4,6 @@
   v-on:search:lists="searchLists"
   v-on:add:list="addList"
   v-on:request="updateVisibleLists"
-  v-on:remove:all="removeAll"
   v-on:logout="logout">
   </app-navbar-user>
   <div class="card-group">
@@ -39,8 +38,8 @@ export default {
       searchQuery: '', //texto para a pesquisa entre as listas
       visibleLists: [], //armazena o resultado da pesquisa atual para mostrar as listas condizentes
       doneTodo: '',
-      showDoneTodos: false,
-      allLists: [],
+      showDoneTodos: false, 
+      allLists: [], //vetor que recebe todas as listas registradas no servidor
     }
   },
   /*
@@ -72,6 +71,10 @@ export default {
     'app-navbar-user': NavbarUser,
   },
   methods: {
+    /*
+    Atualiza as listas visíveis na tela atualizando as informações do usuário. Geralmente é chamada após alguma 
+    modificação no número de listas, seja adicionando novas ou removendo existentes.
+    */
     updateVisibleLists: function(){
       console.log(this.userId);
       axios.get('http://localhost:1337/user/' + this.userId + '/list').then((response) => {
@@ -79,7 +82,6 @@ export default {
         this.visibleLists = response.data;
       })
     },
-    removeAll: function(){},
     /*
       Adiciona tarefas às respectivas listas
     */
@@ -108,6 +110,10 @@ export default {
         this.updateVisibleLists();
       })
     },
+    /*
+    Ao excluir uma lista, todos as suas tarefas são removidas, incluindo as já feitas. Essa função é responsável 
+    por fazer uma requisição ao servidor para remover as tarefas feitas da lista a ser apagada.
+    */
     removeTodoFromDone: function(indexTodos, indexLists){
       axios.get('http://localhost:1337/delete_todo/' + this.visibleLists[indexLists].doneTodos[indexTodos].id)
       .then((response) => {
@@ -199,6 +205,9 @@ export default {
         this.updateVisibleLists();
       })
     },
+    /*
+    Emite evento para que seja feito o logout
+    */
     logout: function(){
       this.$emit('logout');
     }

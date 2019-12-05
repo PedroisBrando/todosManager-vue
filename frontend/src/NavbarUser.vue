@@ -17,7 +17,7 @@
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <input v-model="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Pesquisar">
+      <input v-model="search" class="form-control mr-sm-2" type="text" placeholder="Search for lists" aria-label="Pesquisar">
       <a href="#" class="btn btn-outline-info btn-navbar my-2 my-sm-0" @click="searchLists()">Search Lists</a>
     </div>
     <div class="form-inline my-2 my-lg-0">
@@ -66,12 +66,9 @@ export default{
       this.search = '';
       this.$emit('search:lists', this.search);
     },
-    request: function(){
-      this.$emit('request');
-    },
-    removeAll: function(){
-      this.$emit('remove:all');
-    },
+    /*
+    Faz requisição ao servidor para realizar o logout do usuário e o redirecionar para a home
+    */
     logout: function(){
       axios.get('http://localhost:1337/logout')
         .then((response) => {

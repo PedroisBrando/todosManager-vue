@@ -13,8 +13,8 @@
             <input v-model="password" type="password" id="registerPassword" name="password" class="form-control" placeholder="Password" required>
             <label for="registerPassword">Password</label>
           </div>
-          <button class="btn btn-lg btn-google btn-block text-uppercase"  @click="registerUser()">Register</button>
           <hr class="my-4">
+          <button class="btn btn-lg btn-google btn-block text-uppercase"  @click="registerUser()">Register</button>
         </div>
       </div>
     </div>
@@ -32,6 +32,9 @@
       }
     },
     methods: {
+      /*
+      Faz requisição ao servidor para registrar um novo usuário com os dados fornecidos nos campos
+      */
       registerUser: function(){
         axios.post('http://localhost:1337/user', {
           username: this.username,
